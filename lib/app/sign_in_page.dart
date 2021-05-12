@@ -5,16 +5,27 @@ import 'package:time_tracker_app/common_widgets/sign_in_button.dart';
 import 'package:time_tracker_app/services/auth.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key key, @required this.onSignIn, @required this.auth}) : super(key: key);
+  const SignInPage({Key key, @required this.auth}) : super(key: key);
 
   final AuthBase auth;
 
-  final void Function(User) onSignIn;
-
   Future<void> _signInAnonymously() async {
     try {
-      final user = await auth.signInAnonymously();
-      this.onSignIn(user);
+      await auth.signInAnonymously();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  Future<void> _signInWithGoogle() async {
+    try {
+     await auth.signInWithGoogle();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  Future<void> _signInWithFacebook() async {
+    try {
+     await auth.signInWithFacebook();
     } catch (e) {
       print(e.toString());
     }
@@ -40,19 +51,19 @@ class SignInPage extends StatelessWidget {
             Spacer(),
             SignInButton(
               title: 'Sign in with Google',
-              primaryColor: Colors.orange,
-              onPressed: () {},
+              primaryColor: Colors.orange[400],
+              onPressed: _signInWithGoogle,
             ),
             Gap(13),
             SignInButton(
               title: 'Sign in with Facebook',
-              primaryColor: Colors.blueAccent,
-              onPressed: () {},
+              primaryColor: Colors.blueAccent[200],
+              onPressed: _signInWithFacebook,
             ),
             Gap(13),
             SignInButton(
               title: 'Sign in with Email',
-              primaryColor: Colors.green,
+              primaryColor: Colors.green[400],
               onPressed: () {},
             ),
             Gap(30),
@@ -62,7 +73,7 @@ class SignInPage extends StatelessWidget {
             SignInButton(
               title: 'Continue anonymously',
               onPressed: _signInAnonymously,
-              primaryColor: Colors.blueGrey,
+              primaryColor: Colors.blueGrey[400],
             ),
             Gap(35),
           ],
