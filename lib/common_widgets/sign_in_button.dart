@@ -21,7 +21,8 @@ class SignInButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           elevation: 0,
           primary: Colors.white,
-          backgroundColor: primaryColor),
+          backgroundColor: primaryColor,
+      ),
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

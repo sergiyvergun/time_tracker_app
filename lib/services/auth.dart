@@ -5,6 +5,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 abstract class AuthBase {
   User get currentUser;
 
+  Future<User> signInWithEmailAndPassword(String email, String password);
+
+  Future<User> createUserWithEmailAndPassword(String email,
+      String password);
+
   Future<User> signInAnonymously();
 
   Future<User> signInWithGoogle();
@@ -28,6 +33,20 @@ class Auth implements AuthBase {
   @override
   Future<User> signInAnonymously() async {
     final userCredential = await _firebaseAuth.signInAnonymously();
+    return userCredential.user;
+  }
+
+  @override
+  Future<User> signInWithEmailAndPassword(String email, String password) async {
+    final userCredential = await _firebaseAuth.signInWithCredential(
+        EmailAuthProvider.credential(email: email, password: password));
+    return userCredential.user;
+  }
+@override
+  Future<User> createUserWithEmailAndPassword(String email,
+      String password) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
     return userCredential.user;
   }
 
@@ -81,7 +100,8 @@ class Auth implements AuthBase {
         throw FirebaseAuthException(
           code: 'ERROR_FACEBOOK_LOGIN_FAILED',
           message: response.error.developerMessage,
-        );break;
+        );
+        break;
       default:
         throw UnimplementedError();
     }
