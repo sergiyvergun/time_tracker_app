@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:time_tracker_app/components/sign_in_forms.dart';
-import 'package:time_tracker_app/services/auth.dart';
+import 'package:time_tracker_app/components/email_sign_in_form_change_notifier.dart';
 
 class EmailSignInPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +18,7 @@ class EmailSignInPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SignInFormsButtons(),
+              EmailSignInFormChangeNotifier.create(context),
             ],
           ),
         ),
