@@ -1,17 +1,11 @@
-import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker_app/blocs/email_sign_in_bloc.dart';
 import 'package:time_tracker_app/common_widgets/custom_form.dart';
-import 'package:time_tracker_app/common_widgets/show_alert_dialog.dart';
 import 'package:time_tracker_app/common_widgets/show_exception_alert_dialog.dart';
-import 'package:time_tracker_app/models/email_sign_in_change_model%20copy.dart';
-import 'package:time_tracker_app/models/email_sign_in_model.dart';
+import 'package:time_tracker_app/app/sign_in/email_sign_in_change_model%20copy.dart';
 import 'package:time_tracker_app/services/auth.dart';
-import 'package:time_tracker_app/utils/validators.dart';
 
 class EmailSignInFormChangeNotifier extends StatefulWidget {
   final EmailSignInChangeModel model;

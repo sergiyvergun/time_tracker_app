@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:time_tracker_app/common_widgets/show_exception_alert_dialog.dart';
-import 'package:time_tracker_app/components/email_sign_in_form_change_notifier.dart';
 import 'package:time_tracker_app/services/auth.dart';
 import 'package:time_tracker_app/utils/validators.dart';
-
 import 'email_sign_in_model.dart';
 
 class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
@@ -27,7 +24,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
       formType == EmailSignInFormType.signIn ? 'Sign in' : 'Create an account';
 
   String get secondaryButtonText =>
-      formType == EmailSignInFormType.signIn ? 'Register' : 'Sign in';
+      formType == EmailSignInFormType.signIn ? 'Register': 'Sign in';
 
   bool get canSubmit =>
       emailValidator.isValid(email) &&
@@ -43,6 +40,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
       submitted && emailValidator.isValid(email) ? invalidEmailErrorText : null;
 
   void updateEmail(String email) => updateWith(email: email);
+
   void updatePassword(String password) => updateWith(password: password);
 
   void toggleFormType() {
