@@ -8,7 +8,7 @@ Future<bool> showAlertDialog(
   @required String title,
   @required String content,
   @required String defaultActionText,
-  @required String cancelActionText,
+   String cancelActionText = 'Cancel',
 }) {
   if (!Platform.isIOS) {
     return showDialog(

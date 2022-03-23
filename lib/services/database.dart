@@ -2,22 +2,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:time_tracker_app/app/home/models/job.dart';
 import 'package:time_tracker_app/services/api_path.dart';
+import 'package:time_tracker_app/services/firestore_service.dart';
 
 abstract class Database {
-  Future<void> createJob(Job job);
+  Future<void> setJob(Job job);
+
+  Stream<List<Job>> jobsStream();
 }
+
+String get documentIdFromCurrentDate => DateTime.now().toIso8601String();
 
 class FirestoreDatabase implements Database {
   final String uid;
 
   FirestoreDatabase({@required this.uid}) : assert(uid != null);
 
-  Future<void> createJob(Job job) =>
-      _setData(path: APIPath.job(uid, 'job_abc'), data: job.toMap());
+  final _service = FirestoreService.instance;
 
-  Future<void> _setData({String path, Map<String, dynamic> data}) async {
-    final documentReference = FirebaseFirestore.instance.doc(path);
-    print('$path: $data');
-    await documentReference.set(data);
-  }
+  Stream<List<Job>> jobsStream() => _service.collectionStream(
+        path: APIPath.jobs(uid),
+        builder: (data, documentId) => Job.fromMap(data, documentId),
+      );
+
+  Future<void> setJob(Job job) =>
+      _service.setData(path: APIPath.job(uid, job.id), data: job.toMap());
 }
